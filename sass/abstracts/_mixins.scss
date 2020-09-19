@@ -1,0 +1,71 @@
+@mixin clearfix {
+    &::after {
+        content: '';
+        clear: both;
+        display: table;
+    }
+}
+
+@mixin text-gradient {
+    background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+@mixin absCenter {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// MEDIA QUERY CONTROLLER
+/*
+0 - 450px:      Small Mobile Phone
+450 - 600px:    Medium Mobile Phone
+600 - 900px:    Tablet Portrait
+900 - 1200px:   Tablet landscape
+[1200 - 1800] is where our normal styles apply
+1800px + :      Big Desktop
+
+$breakpnt argument choices:
+- small-phone
+- mid-phone
+- tab-port
+- tab-land
+- big-desktop
+
+ORDER: base + typography > general layout + grid > page layout > components
+*/
+
+@mixin respond($breakpnt) {
+    @if $breakpnt==small-phone {        // width <= 450px
+        @media (max-width: 28.125em) {
+            @content;
+        }
+    }
+
+    @if $breakpnt==mid-phone {        // 450px < width <= 600px
+        @media (max-width: 37.5em) {
+            @content;
+        }
+    }
+
+    @if $breakpnt==tab-port {       // 600px < width <= 900px
+        @media (max-width: 56.25em) {
+            @content;
+        }
+    }
+
+    @if $breakpnt==tab-land {       // 900px < width <= 1200px
+        @media (max-width: 75em) {
+            @content;
+        }
+    }
+
+    @if $breakpnt==big-desktop {     // width >= 1800px
+        @media (min-width: 112.5em) {
+            @content;
+        }
+    }
+}
